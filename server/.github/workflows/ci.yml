@@ -1,0 +1,24 @@
+name: CI
+on:
+  push:
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install (server)
+        working-directory: ./server
+        run: npm ci
+      - name: Build (server)
+        working-directory: ./server
+        run: npm run build
+      - name: Install (web)
+        working-directory: ./web
+        run: npm ci
+      - name: Build (web)
+        working-directory: ./web
+        run: npm run build
